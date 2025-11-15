@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şerafettin Küçüktaş - GitHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a365d;
+            --secondary: #2d3748;
+            --accent: #4a5568;
+            --light: #f7fafc;
+            --border: #e2e8f0;
+            --text: #2d3748;
+            --text-light: #718096;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .bio {
+            max-width: 600px;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tech-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 120px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--accent);
+        }
+        
+        .repos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .repo-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .repo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .repo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .repo-name {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .repo-name:hover {
+            text-decoration: underline;
+        }
+        
+        .repo-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .repo-description {
+            color: var(--text);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .repo-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .repo-language {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .language-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .repo-date {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .topic {
+            background: var(--light);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+            grid-column: 1 / -1;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #e53e3e;
+            grid-column: 1 / -1;
+        }
+        
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 30px 0;
+            margin-top: 60px;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.2rem;
+            transition: opacity 0.3s;
+        }
+        
+        .social-link:hover {
+            opacity: 0.7;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .stats {
+                justify-content: center;
+            }
+            
+            .repos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Şerafettin Küçüktaş</h1>
+                    <p class="tagline">Bilgisayar Mühendisliği Öğrencisi & Full Stack Geliştirici</p>
+                    <p class="bio">
+                        Bilgisayar mühendisliği 3. sınıf öğrencisiyim. Full stack web geliştirme, görüntü işleme ve mobil uygulama geliştirme üzerine çalışıyorum. Boş zamanlarımı yeni teknolojiler keşfedip bunları öğrenmek ve çalışmalar yapmakla geçiriyorum.
+                    </p>
+                    <div class="tech-stack">
+                        <div class="tech-item">.NET Core</div>
+                        <div class="tech-item">HTML/CSS/JavaScript</div>
+                        <div class="tech-item">Java</div>
+                        <div class="tech-item">Python</div>
+                        <div class="tech-item">OpenCV</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="repo-count">-</div>
+                        <div class="stat-label">Repolar</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="star-count">-</div>
+                        <div class="stat-label">Yıldızlar</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="fork-count">-</div>
+                        <div class="stat-label">Forklar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-code"></i>
+                Projelerim
+            </h2>
+            <div class="repos-grid" id="repos-container">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin fa-2x"></i>
+                    <p>Repolar yükleniyor...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Şerafettin Küçüktaş. Tüm hakları saklıdır.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Phantomer-soft" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/%C5%9Ferafettin-k%C3%BC%C3%A7%C3%BCkta%C5%9F-5ba1281a7/?originalSubdomain=tr" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    </a>
+                    <a href="mailto:kucuktas255@gmail.com" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GitHub API'den veri çekme
+        async function fetchGitHubData() {
+            const username = 'Phantomer-soft'; 
+            const reposContainer = document.getElementById('repos-container');
+            
+            try {
+                // Kullanıcı bilgilerini çek
+                const userResponse = await fetch(`https://api.github.com/users/${username}`);
+                const userData = await userResponse.json();
+                
+                // Repoları çek
+                const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=100`);
+                const repos = await reposResponse.json();
+                
+                // İstatistikleri güncelle
+                updateStats(userData, repos);
+                
+                // Repoları göster
+                displayRepos(repos);
+                
+            } catch (error) {
+                console.error('Veri yüklenirken hata oluştu:', error);
+                reposContainer.innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                        <p>Repolar yüklenirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // İstatistikleri güncelle
+        function updateStats(userData, repos) {
+            const repoCount = document.getElementById('repo-count');
+            const starCount = document.getElementById('star-count');
+            const forkCount = document.getElementById('fork-count');
+            
+            repoCount.textContent = userData.public_repos;
+            
+            // Toplam yıldız ve fork sayılarını hesapla
+            const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+            const totalForks = repos.reduce((sum, repo) => sum + repo.forks_count, 0);
+            
+            starCount.textContent = totalStars;
+            forkCount.textContent = totalForks;
+        }
+        
+        // Repoları ekranda göster
+        function displayRepos(repos) {
+            const reposContainer = document.getElementById('repos-container');
+            
+            // Yükleme göstergesini kaldır
+            reposContainer.innerHTML = '';
+            
+            if (repos.length === 0) {
+                reposContainer.innerHTML = `
+                    <div class="loading">
+                        <i class="fas fa-folder-open fa-2x"></i>
+                        <p>Henüz hiç repo bulunmuyor.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Her repo için kart oluştur
+            repos.forEach(repo => {
+                const repoCard = document.createElement('div');
+                repoCard.className = 'repo-card';
+                
+                const languageColor = getLanguageColor(repo.language);
+                const updatedDate = new Date(repo.updated_at).toLocaleDateString('tr-TR');
+                
+                repoCard.innerHTML = `
+                    <div class="repo-header">
+                        <a href="${repo.html_url}" class="repo-name" target="_blank">
+                            ${repo.name}
+                        </a>
+                        <div class="repo-stats">
+                            <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+                            <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+                        </div>
+                    </div>
+                    <p class="repo-description">${repo.description || 'Açıklama bulunmuyor.'}</p>
+                    ${repo.topics && repo.topics.length > 0 ? 
+                        `<div class="topics">
+                            ${repo.topics.slice(0, 4).map(topic => `<span class="topic">${topic}</span>`).join('')}
+                        </div>` : ''
+                    }
+                    <div class="repo-footer">
+                        <div class="repo-language">
+                            ${repo.language ? `
+                                <span class="language-color" style="background-color: ${languageColor};"></span>
+                                ${repo.language}
+                            ` : ''}
+                        </div>
+                        <div class="repo-date">
+                            <i class="far fa-calendar-alt"></i> ${updatedDate}
+                        </div>
+                    </div>
+                `;
+                
+                reposContainer.appendChild(repoCard);
+            });
+        }
+        
+        // Dil rengi eşleştirme
+        function getLanguageColor(language) {
+            const colors = {
+                'JavaScript': '#f1e05a',
+                'Python': '#3572A5',
+                'Java': '#b07219',
+                'C#': '#178600',
+                'CSS': '#563d7c',
+                'HTML': '#e34c26',
+                'TypeScript': '#2b7489',
+                'PHP': '#4F5D95',
+                'C++': '#f34b7d',
+                'C': '#555555',
+                'Shell': '#89e051',
+                'Ruby': '#701516',
+                'Go': '#00ADD8',
+                'Swift': '#ffac45',
+                'Kotlin': '#F18E33',
+                'Rust': '#dea584',
+                'Dart': '#00B4AB'
+            };
+            
+            return colors[language] || '#cccccc';
+        }
+        
+        // Sayfa yüklendiğinde verileri getir
+        document.addEventListener('DOMContentLoaded', fetchGitHubData);
+    </script>
+</body>
+</html>
